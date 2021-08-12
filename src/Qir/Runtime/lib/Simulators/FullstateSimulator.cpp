@@ -23,7 +23,8 @@
 
 
 #include "FloatUtils.hpp"
-#include "QirTypes.hpp" // TODO: Consider removing dependency on this file.
+#include "QirTypes.hpp"         // TODO: Consider removing dependency on this file.
+#include "QirRuntime.hpp"
 #include "QirRuntimeApi_I.hpp"
 #include "QSharpSimApi_I.hpp"
 #include "SimFactory.hpp"
@@ -225,11 +226,15 @@ namespace Quantum
 
         void ReleaseQubit(Qubit q) override
         {
-            typedef void (*TReleaseQubit)(unsigned, unsigned);
+            typedef bool (*TReleaseQubit)(unsigned, unsigned);
             static TReleaseQubit releaseQubit = reinterpret_cast<TReleaseQubit>(this->GetProc("release"));
 
-            releaseQubit(this->simulatorId, GetQubitId(q)); // Release qubit in the simulator.
-            qubitManager->Release(q);                       // Release it in the qubit manager.
+            // Release qubit in the simulator.
+            if (!releaseQubit(this->simulatorId, GetQubitId(q)))
+            {
+                quantum__rt__fail_cstr("Released qubits are entangled.");
+            }
+            qubitManager->Release(q); // Release it in the qubit manager.
         }
 
         Result Measure(long numBases, PauliId bases[], long numTargets, Qubit targets[]) override
