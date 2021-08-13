@@ -11,33 +11,65 @@
 
 extern "C"
 {
+    //
+    //  THE BRANCH DOESN'T COMPILE AT THIS TIME. ONLY DEFINING A SET OF FUNCTION AT THIS TIME
+    //
+
+
+
     // ------------------------------------------------------------------------
-    // Qubits
+    // Qubit Management. TODO: Use QirArray? How to modify elements?
+    // ------------------------------------------------------------------------
+
+    QIR_SHARED_API QUBIT* quantum__rt__qubit_allocate(); // NOLINT
+    QIR_SHARED_API QirArray* quantum__rt__qubit_allocate_array(int64_t count); // NOLINT
+
+    QIR_SHARED_API void quantum__rt__qubit_release(QUBIT*); // NOLINT
+    QIR_SHARED_API void quantum__rt__qubit_release_array(QirArray*); // NOLINT
+
+    QIR_SHARED_API QUBIT* quantum__rt__qubit_borrow(); // NOLINT
+    QIR_SHARED_API QirArray* quantum__rt__qubit_borrow_array(int64_t count); // NOLINT
+
+    QIR_SHARED_API void quantum__rt__qubit_return(QUBIT*); // NOLINT
+    QIR_SHARED_API void quantum__rt__qubit_return_array(QirArray*); // NOLINT
+
+    // ------------------------------------------------------------------------
+    // Qubit Management Restricted Reuse Control. TODO: Names?
+    // ------------------------------------------------------------------------
+
+    QIR_SHARED_API void quantum__rt__qubit_start_restricted_reuse_area(); // NOLINT
+    QIR_SHARED_API void quantum__rt__qubit_next_restricted_reuse_segment(); // NOLINT
+    QIR_SHARED_API void quantum__rt__qubit_end_restricted_reuse_area(); // NOLINT
+
+    // ------------------------------------------------------------------------
+    // Old qubit management
     // ------------------------------------------------------------------------
 
     // Allocates a single qubit.
-    QIR_SHARED_API QUBIT* quantum__rt__qubit_allocate(); // NOLINT
-
+    //QIR_SHARED_API QUBIT* quantum__rt__qubit_allocate(); // NOLINT
+    //
     // Allocates an array of qubits.
-    QIR_SHARED_API QirArray* quantum__rt__qubit_allocate_array(int64_t count); // NOLINT
-
+    //QIR_SHARED_API QirArray* quantum__rt__qubit_allocate_array(int64_t count); // NOLINT
+    //
     // Release a single qubit.
-    QIR_SHARED_API void quantum__rt__qubit_release(QUBIT*); // NOLINT
-
+    //QIR_SHARED_API void quantum__rt__qubit_release(QUBIT*); // NOLINT
+    //
     // Release qubits, owned by the array. The array itself is also released.
-    QIR_SHARED_API void quantum__rt__qubit_release_array(QirArray*); // NOLINT
-
+    //QIR_SHARED_API void quantum__rt__qubit_release_array(QirArray*); // NOLINT
+    //
     // Borrow a single qubit.
     // TODO QIR_SHARED_API QUBIT* quantum__rt__qubit_borrow(); // NOLINT
-
+    //
     // Borrow an array of qubits.
     // TODO QIR_SHARED_API QirArray* quantum__rt__qubit_borrow_array(int64_t count); // NOLINT
-
+    //
     // Return a borrowed qubit.
     // TODO QIR_SHARED_API void quantum__rt__qubit_return(QUBIT*); // NOLINT
-
+    //
     // Return an array of borrowed qubits.
     // TODO QIR_SHARED_API void quantum__rt__qubit_return_array(QirArray*); // NOLINT
+
+
 
     // ------------------------------------------------------------------------
     // Utils
