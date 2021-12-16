@@ -4,6 +4,7 @@
 namespace Microsoft.Quantum.Simulation.Simulators.Tests
 {
     open Microsoft.Quantum.Intrinsic;
+    open Microsoft.Quantum.Canon;
 
     operation VerySimpleEstimate () : Unit
     {
@@ -14,6 +15,13 @@ namespace Microsoft.Quantum.Simulation.Simulators.Tests
             Controlled X([q[1]], q[0]);
 
             ResetAll([q[1], q[0]]);
+        }
+    }
+
+    operation CountCKT () : Unit
+    {
+        use (a, b, c) = (Qubit(), Qubit(), Qubit()) {
+            ApplyAnd(a, b, c);
         }
     }
 

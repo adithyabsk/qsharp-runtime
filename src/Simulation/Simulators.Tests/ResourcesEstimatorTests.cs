@@ -75,6 +75,22 @@ namespace Microsoft.Quantum.Simulation.Simulators.Tests
             Assert.Equal(3.0, data.Rows.Find("Width")["Sum"]);
         }
 
+        [Fact]
+        public void VerifyDataTest()
+        {
+            var sim = new ResourcesEstimator();
+
+            CountCKT.Run(sim).Wait();
+            var data = sim.Data;
+
+            Console.WriteLine(data);
+            // TODO: The CountCKT does not compile because it cannot find the ApplyAnd
+            // Assert.Equal(1.0, data.Rows.Find("CNOT")["Sum"]);
+            // Assert.Equal(0.0, data.Rows.Find("R")["Sum"]);
+            // Assert.Equal(2.0, data.Rows.Find("QubitClifford")["Sum"]);
+            // Assert.Equal(3.0, data.Rows.Find("Width")["Sum"]);
+        }
+
         /// <summary>
         /// Verifies the calls ToCSV returns a non-empty string.
         /// </summary>
